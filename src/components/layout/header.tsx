@@ -45,12 +45,14 @@ import {
 import { Separator } from "../ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
 import { useTheme } from "next-themes";
+import Image from "next/image";
+import { Logo } from "./logo";
 
 const navLinks = [
   { href: "/", label: "Startseite" },
   { href: "/story", label: "Geschichte" },
   { href: "/products", label: "Produkte" },
-  { href: "/pairings", label: "KI-Paarungen" },
+  { href: '/contact', label: 'Kontakt' },
 ];
 
 const containerVariants = {
@@ -159,9 +161,8 @@ export function Header() {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center"
               >
-                <span className="text-lg font-headline font-bold">O</span>
+                <Logo size={10} />
               </motion.div>
               <motion.div
                 className="flex overflow-hidden"
@@ -169,7 +170,7 @@ export function Header() {
                 initial="hidden"
                 animate="visible"
               >
-                {"Olivare".split("").map((char, index) => (
+                {"Azemmur".split("").map((char, index) => (
                   <motion.span
                     key={index}
                     variants={letterVariants}
@@ -240,9 +241,7 @@ export function Header() {
                     className="flex items-center space-x-2 mb-4"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-md">
-                      <span className="text-lg font-headline font-bold">O</span>
-                    </div>
+                    <Logo size={10} />
                     <span className="text-lg font-headline font-bold text-primary">
                       Olivare
                     </span>

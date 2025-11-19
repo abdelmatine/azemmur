@@ -1,9 +1,9 @@
+"use client";
 
-'use client';
-
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Logo } from "./layout/logo";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -17,18 +17,20 @@ const containerVariants = {
 };
 
 const letterVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { 
-        opacity: 1, 
-        y: 0,
-        transition: {
-            repeat: Infinity,
-            repeatType: 'reverse',
-            duration: 0.8,
-            ease: 'easeInOut'
-        }
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      damping: 12,
+      stiffness: 100,
+      repeat: Infinity,
+      repeatType: "reverse",
+      duration: 1,
     },
-}
+  },
+};
 
 export default function PageLoader() {
   const pathname = usePathname();
@@ -47,30 +49,39 @@ export default function PageLoader() {
       return () => clearTimeout(timer);
     }
   }, [isInitialLoad]);
-  
+
   // Handle triggering the loader on subsequent client-side navigations
   useEffect(() => {
     const handleLinkClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       // Find the closest 'a' tag, but don't trigger if it's inside a component that handles its own state (like wishlist/cart buttons)
-      const anchor = target.closest('a');
-      const selfManaged = target.closest('[data-no-loader]');
+      const anchor = target.closest("a");
+      const selfManaged = target.closest("[data-no-loader]");
 
-      if (anchor && !selfManaged && anchor.href && anchor.getAttribute('href')?.startsWith('/') && anchor.getAttribute('target') !== '_blank') {
+      if (
+        anchor &&
+        !selfManaged &&
+        anchor.href &&
+        anchor.getAttribute("href")?.startsWith("/") &&
+        anchor.getAttribute("target") !== "_blank"
+      ) {
         // Check for modifier keys to allow opening in new tab
         if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
-           // Only set loading if the path is different
-           if (window.location.origin + anchor.getAttribute('href') !== window.location.href) {
-             setLoading(true);
-           }
+          // Only set loading if the path is different
+          if (
+            window.location.origin + anchor.getAttribute("href") !==
+            window.location.href
+          ) {
+            setLoading(true);
+          }
         }
       }
     };
-    
-    document.addEventListener('click', handleLinkClick);
-    
+
+    document.addEventListener("click", handleLinkClick);
+
     return () => {
-      document.removeEventListener('click', handleLinkClick);
+      document.removeEventListener("click", handleLinkClick);
     };
   }, []); // Run only once
 
@@ -78,7 +89,7 @@ export default function PageLoader() {
   useEffect(() => {
     // Don't hide on initial load, let the first effect handle it
     if (!isInitialLoad) {
-        setLoading(false);
+      setLoading(false);
     }
   }, [pathname, searchParams, isInitialLoad]);
 
@@ -90,39 +101,46 @@ export default function PageLoader() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: 'easeInOut' }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           className="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center bg-background/80 backdrop-blur-sm"
         >
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex items-center gap-4"
+          >
             <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                className="flex items-center gap-3"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.1,
+              }}
             >
-                <motion.div
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.1 }}
-                    className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-lg"
-                >
-                    <span className="text-3xl font-headline font-bold">O</span>
-                </motion.div>
-                <motion.div
-                    className="flex overflow-hidden"
-                    variants={containerVariants}
-                >
-                    {'Olivare'.split('').map((char, index) => (
-                        <motion.span
-                            key={index}
-                            variants={letterVariants}
-                            className="text-3xl font-headline font-bold text-primary"
-                            style={{ transitionDelay: `${index * 0.1}s` }}
-                        >
-                            {char}
-                        </motion.span>
-                    ))}
-                </motion.div>
+              <Logo size={12} />
             </motion.div>
+            <motion.div
+              className="flex overflow-hidden"
+              variants={containerVariants}
+            >
+              {"Azemmur".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  variants={letterVariants}
+                  transition={{
+                    ...letterVariants.visible.transition,
+                    delay: index * 0.05,
+                  }}
+                  className="text-3xl font-headline font-bold text-primary"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

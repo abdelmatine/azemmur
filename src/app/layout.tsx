@@ -23,6 +23,9 @@ const fontHeadline = Playfair_Display({
 export const metadata: Metadata = {
   title: "Olivare Erlebnis",
   description: "Premium-Olivenöl für den anspruchsvollen Gaumen.",
+  icons: {
+      icon: '/images/logo2.jpg',
+  },
 };
 
 export default function RootLayout({

@@ -1,26 +1,168 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 44 24% 96%;
+    --foreground: 161 28% 21%;
+    --card: 44 24% 96%;
+    --card-foreground: 161 28% 21%;
+    --popover: 44 24% 96%;
+    --popover-foreground: 161 28% 21%;
+    --primary: 161 29% 25%;
+    --primary-foreground: 55 64% 93%;
+    --secondary: 161 17% 48%;
+    --secondary-foreground: 55 64% 93%;
+    --muted: 44 24% 91%;
+    --muted-foreground: 161 28% 31%;
+    --accent: 88 28% 54%;
+    --accent-foreground: 161 28% 21%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 55 64% 93%;
+    --border: 44 24% 89%;
+    --input: 44 24% 89%;
+    --ring: 161 29% 25%;
+    --radius: 0.5rem;
+    --chart-1: 161 29% 25%;
+    --chart-2: 161 17% 48%;
+    --chart-3: 88 28% 54%;
+    --chart-4: 56 63% 66%;
+    --chart-5: 161 15% 40%;
+  }
+  .dark {
+    --background: 161 29% 15%;
+    --foreground: 44 24% 98%;
+    --card: 161 29% 17%;
+    --card-foreground: 44 24% 98%;
+    --popover: 161 29% 15%;
+    --popover-foreground: 44 24% 98%;
+    --primary: 161 28% 35%;
+    --primary-foreground: 55 64% 93%;
+    --secondary: 161 17% 38%;
+    --secondary-foreground: 55 64% 93%;
+    --muted: 161 29% 20%;
+    --muted-foreground: 44 24% 70%;
+    --accent: 88 28% 64%;
+    --accent-foreground: 161 29% 15%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 55 64% 93%;
+    --border: 161 29% 20%;
+    --input: 161 29% 20%;
+    --ring: 161 28% 35%;
+    --chart-1: 161 28% 35%;
+    --chart-2: 161 17% 38%;
+    --chart-3: 88 28% 64%;
+    --chart-4: 56 63% 76%;
+    --chart-5: 161 15% 40%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--secondary));
+    border-radius: 6px;
+    border: 3px solid hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--primary));
+  }
+}
+
+@layer utilities {
+  .bg-hero-pattern {
+    background-image: url('https://images.unsplash.com/photo-1571997843236-4394c861204b?q=80&w=1920&h=1080&fit=crop');
+  }
+  .bg-story-1 {
+    background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1920&h=1080&fit=crop');
+  }
+  .bg-story-2 {
+    background-image: url('https://images.unsplash.com/photo-1622240506294-4a2432edc974?q=80&w=1920&h=1080&fit=crop');
+  }
+  .bg-story-3 {
+    background-image: url('https://images.unsplash.com/photo-1507682520764-93441a686543?q=80&w=1920&h=1080&fit=crop');
+  }
+  .bg-story-tunisia {
+    background-image: url('https://images.unsplash.com/photo-1595052950588-4349140b3777?q=80&w=1920&h=1080&fit=crop');
+  }
+
+  .floating-leaf {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-shake {
+    animation: shake 1.5s cubic-bezier(.36,.07,.19,.97) infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate(20px, -20px) rotate(15deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+  }
+
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0) rotate(-1deg);
+    }
+    20%, 80% {
+      transform: translate3d(2px, 0, 0) rotate(2deg);
+    }
+    30%, 50%, 70% {
+      transform: translate3d(-3px, 0, 0) rotate(-3deg);
+    }
+    40%, 60% {
+      transform: translate3d(3px, 0, 0) rotate(3deg);
+    }
+  }
+
+
+  .floating-leaf:nth-child(2) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+  }
+
+  .floating-leaf:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 8s;
+  }
+  
+  .floating-leaf:nth-child(4) {
+    animation-delay: -1s;
+    animation-duration: 5s;
+  }
+
+  .floating-leaf:nth-child(5) {
+    animation-delay: -3s;
+    animation-duration: 6.5s;
+  }
+
+  /* Specific style for shadcn horizontal scrollbar thumb */
+  div[data-orientation="horizontal"] > div > div {
+    background-color: hsl(var(--border));
+    border-radius: 9999px;
+  }
 }

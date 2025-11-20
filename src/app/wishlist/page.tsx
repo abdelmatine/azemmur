@@ -1,7 +1,5 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import { Button } from "../../components/ui/button";
 import {
   Card,
@@ -18,6 +16,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useToast } from "../../hooks/use-toast";
 import { Product } from "../../lib/products";
+
+export const dynamic = "force-dynamic";
 
 export default function WishlistPage() {
   const { items: wishlistItems, toggleWishlist } = useWishlistStore();

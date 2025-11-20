@@ -1,7 +1,5 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import {
   Card,
   CardContent,
@@ -15,6 +13,8 @@ import { Label } from "../../../components/ui/label";
 import { Button } from "../../../components/ui/button";
 import { useToast } from "../../../hooks/use-toast";
 import { useState } from "react";
+
+export const dynamic = "force-dynamic";
 
 export default function UserDetailsPage() {
   const { user } = useAuth();

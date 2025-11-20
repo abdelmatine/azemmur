@@ -1,7 +1,5 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -53,6 +51,8 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 import { countries } from "../../lib/countries";
+
+export const dynamic = "force-dynamic";
 
 const shippingSchema = z.object({
   firstName: z.string().min(1, "Vorname ist erforderlich"),

@@ -1,7 +1,5 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import { Button } from "../../components/ui/button";
 import {
   Card,
@@ -17,6 +15,8 @@ import { ShoppingCart, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+
+export const dynamic = "force-dynamic";
 
 export default function CartPage() {
   const { items: cartItems, removeItem, updateQuantity } = useCartStore();

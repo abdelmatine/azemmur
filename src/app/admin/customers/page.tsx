@@ -1,7 +1,5 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import {
   Card,
   CardContent,
@@ -29,6 +27,8 @@ import {
   Customer,
 } from "../../../data/customers";
 import { Skeleton } from "../../../components/ui/skeleton";
+
+export const dynamic = "force-dynamic";
 
 const CustomerRowSkeleton = () => (
   <TableRow>

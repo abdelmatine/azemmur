@@ -1,16 +1,23 @@
+"use client";
 
-'use client';
+export const dynamic = "force-dynamic";
 
-import { Button } from '../../components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../components/ui/card';
-import { useWishlistStore } from '../../store/wishlist-slice';
-import { useCartStore } from '../../store/cart-slice';
-import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { useToast } from '../../hooks/use-toast';
-import { Product } from '../../lib/products';
+import { Button } from "../../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import { useWishlistStore } from "../../store/wishlist-slice";
+import { useCartStore } from "../../store/cart-slice";
+import { Heart, ShoppingCart, Trash2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useToast } from "../../hooks/use-toast";
+import { Product } from "../../lib/products";
 
 export default function WishlistPage() {
   const { items: wishlistItems, toggleWishlist } = useWishlistStore();
@@ -35,10 +42,10 @@ export default function WishlistPage() {
   const handleRemoveFromWishlist = (item: Product) => {
     toggleWishlist(item);
     toast({
-        title: "Von der Wunschliste entfernt",
-        description: `${item.name} wurde von Ihrer Wunschliste entfernt.`,
+      title: "Von der Wunschliste entfernt",
+      description: `${item.name} wurde von Ihrer Wunschliste entfernt.`,
     });
-  }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -56,14 +63,14 @@ export default function WishlistPage() {
       y: 0,
       opacity: 1,
       transition: {
-          duration: 0.7,
-          ease: 'easeOut'
-      }
+        duration: 0.7,
+        ease: "easeOut",
+      },
     },
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="container mx-auto py-12 md:py-24 pt-32"
       initial="hidden"
       animate="visible"
@@ -75,56 +82,69 @@ export default function WishlistPage() {
           Ihre Wunschliste
         </h1>
       </motion.div>
-      
+
       {wishlistItems.length === 0 ? (
         <motion.div className="text-center" variants={itemVariants}>
-            <p className="text-lg text-foreground/80">Ihre Wunschliste ist leer.</p>
-            <Button asChild className="mt-4">
-                <Link href="/products">Produkte entdecken</Link>
-            </Button>
+          <p className="text-lg text-foreground/80">
+            Ihre Wunschliste ist leer.
+          </p>
+          <Button asChild className="mt-4">
+            <Link href="/products">Produkte entdecken</Link>
+          </Button>
         </motion.div>
       ) : (
-        <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
-            variants={containerVariants}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          variants={containerVariants}
         >
-            {wishlistItems.map(item => (
-                 <motion.div 
-                    key={item.id} 
-                    variants={itemVariants}
-                >
-                <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
-                    <CardHeader className="p-0">
-                        <Link href={`/products/${item.id}`} passHref className="block overflow-hidden aspect-[4/5] relative">
-                            <Image
-                                src={item.image}
-                                alt={item.name}
-                                className="object-cover w-full h-full cursor-pointer transition-transform duration-500 group-hover:scale-105"
-                                width={600}
-                                height={800}
-                            />
-                        </Link>
-                    </CardHeader>
-                    <CardContent className="pt-6 flex-grow">
-                        <CardTitle className="font-headline text-xl h-16">
-                            <Link href={`/products/${item.id}`} passHref>
-                                {item.name}
-                            </Link>
-                        </CardTitle>
-                        <p className="text-lg font-semibold text-primary mt-2">${item.price.toFixed(2)}</p>
-                    </CardContent>
-                    <CardFooter className="flex gap-2">
-                        <Button className="w-full" onClick={(e) => handleAddToCart(e, item as any)}>
-                            <ShoppingCart className="mr-2 h-4 w-4" />
-                            In den Warenkorb
-                        </Button>
-                        <Button variant="outline" size="icon" className="text-destructive" onClick={() => handleRemoveFromWishlist(item as any)}>
-                             <Trash2 className="h-4 w-4" />
-                        </Button>
-                    </CardFooter>
-                    </Card>
-                </motion.div>
-            ))}
+          {wishlistItems.map((item) => (
+            <motion.div key={item.id} variants={itemVariants}>
+              <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+                <CardHeader className="p-0">
+                  <Link
+                    href={`/products/${item.id}`}
+                    passHref
+                    className="block overflow-hidden aspect-[4/5] relative"
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      className="object-cover w-full h-full cursor-pointer transition-transform duration-500 group-hover:scale-105"
+                      width={600}
+                      height={800}
+                    />
+                  </Link>
+                </CardHeader>
+                <CardContent className="pt-6 flex-grow">
+                  <CardTitle className="font-headline text-xl h-16">
+                    <Link href={`/products/${item.id}`} passHref>
+                      {item.name}
+                    </Link>
+                  </CardTitle>
+                  <p className="text-lg font-semibold text-primary mt-2">
+                    ${item.price.toFixed(2)}
+                  </p>
+                </CardContent>
+                <CardFooter className="flex gap-2">
+                  <Button
+                    className="w-full"
+                    onClick={(e) => handleAddToCart(e, item as any)}
+                  >
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    In den Warenkorb
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="text-destructive"
+                    onClick={() => handleRemoveFromWishlist(item as any)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          ))}
         </motion.div>
       )}
     </motion.div>
